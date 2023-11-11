@@ -35,6 +35,11 @@
                 <TabItem.Header>
                     <TextBlock Text="Задание 1"></TextBlock>
                 </TabItem.Header>
+                <TabItem.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Update" Command="{Binding UpdateModel}"/>
+                    </ContextMenu>
+                </TabItem.ContextMenu>
                 <TabItem.Content>
                     <Grid RenderTransformOrigin="0.503,0.544">
                         <Grid.RowDefinitions>
@@ -55,22 +60,22 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             
-                            <ToggleButton Grid.Row="0" Style="{StaticResource toggleButtonGraph}"/>
+                            <ToggleButton Grid.Row="0" Style="{StaticResource toggleButtonGraph}" Command="{Binding ShowLinearCommand}"/>
                             <Viewbox  Grid.Row="0" Grid.Column="1"  Style="{StaticResource viewGraphBox}">
                                 <TextBlock Text="y=ax+b" Style="{StaticResource textBlockGraph}"/>
                             </Viewbox>
 
-                            <ToggleButton Grid.Row="1" Style="{StaticResource toggleButtonGraph}"/>
+                            <ToggleButton Grid.Row="1" Style="{StaticResource toggleButtonGraph}" Command="{Binding ShowPowerCommand}"/>
                             <Viewbox  Grid.Row="1" Grid.Column="1"  Style="{StaticResource viewGraphBox}">
                                 <TextBlock Text="y=be^x" Style="{StaticResource textBlockGraph}"/>
                             </Viewbox>
 
-                            <ToggleButton Grid.Row="2" Style="{StaticResource toggleButtonGraph}"/>
+                            <ToggleButton Grid.Row="2" Style="{StaticResource toggleButtonGraph}" Command="{Binding ShowExpCommand}"/>
                             <Viewbox  Grid.Row="2" Grid.Column="1"  Style="{StaticResource viewGraphBox}">
                                 <TextBlock Text="y=bx^a" Style="{StaticResource textBlockGraph}"/>
                             </Viewbox>
-                            
-                            <ToggleButton Grid.Row="3" Style="{StaticResource toggleButtonGraph}"/>
+
+                            <ToggleButton Grid.Row="3" Style="{StaticResource toggleButtonGraph}" Command="{Binding ShowQuadricCommand}"/>
                             <Viewbox  Grid.Row="3" Grid.Column="1"  Style="{StaticResource viewGraphBox}">
                                 <TextBlock Text="y=ax^2+bx+c" Style="{StaticResource textBlockGraph}"/>
                             </Viewbox>
