@@ -8,6 +8,7 @@ using Graph.Services;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows;
+using OxyPlot.Legends;
 
 namespace Graph
 {
@@ -110,7 +111,8 @@ namespace Graph
         private bool CanUpdateModelExecute(object p) => true;
         private void OnUpdateModelExecuted(object p)
         {
-
+            MyModel.ResetAllAxes();
+            MyModel.InvalidatePlot(true);
         }
         #endregion
 
@@ -127,6 +129,7 @@ namespace Graph
                     {
                         sumA += Math.Pow(listX[k], i+j);
                     }
+                    sumA = Math.Round(sumA, tempAccuracy);
                     matrix[i, j] = sumA;
                 }
                 double sumB = 0;
@@ -134,6 +137,7 @@ namespace Graph
                 {
                     sumB += listY[j] * Math.Pow(listX[j], i);
                 }
+                sumB = Math.Round(sumB, tempAccuracy);
                 matrix[i, dim] = sumB;
             }
             return matrix;
@@ -142,9 +146,10 @@ namespace Graph
         private void getLinearFunc()
         {
             var coefs = MathMethods.MethodKramera(MakeSystem(inputX, inputY, 2));
-            coefs[0] = Math.Round(coefs[0], tempAccuracy);
-            coefs[1] = Math.Round(coefs[1], tempAccuracy);
+            coefs[0] = Math.Round(coefs[0], parameterAccuracy);
+            coefs[1] = Math.Round(coefs[1], parameterAccuracy);
             linearFunction = new FunctionSeries(x => coefs[1] * x + coefs[0], inputX[0], inputX[size-1], 0.1, $"y={coefs[1]}x+{coefs[0]}");
+            linearFunction.Color = OxyColor.FromRgb(127,0,0);
         }
 
         private void getPowerFunc()
@@ -152,27 +157,30 @@ namespace Graph
             var tempX = inputX.Select(x => Math.Log(x)).ToArray();
             var tempY = inputY.Select(y => Math.Log(y)).ToArray();
             var coefs = MathMethods.MethodKramera(MakeSystem(tempX, tempY, 2));
-            coefs[0] = Math.Round(Math.Exp(coefs[0]), tempAccuracy);
-            coefs[1] = Math.Round(coefs[1], tempAccuracy);
+            coefs[0] = Math.Round(Math.Exp(coefs[0]), parameterAccuracy);
+            coefs[1] = Math.Round(coefs[1], parameterAccuracy);
             powerFunction = new FunctionSeries(x => Math.Pow(x,coefs[1])*coefs[0], inputX[0], inputX[size - 1], 0.1, $"y=x^{coefs[1]}*{coefs[0]}");
+            powerFunction.Color = OxyColor.FromRgb(255, 144, 0);
         }
 
         private void getExpFunc()
         {
             var tempY = inputY.Select(y => Math.Log(y)).ToArray();
             var coefs = MathMethods.MethodKramera(MakeSystem(inputX, tempY, 2));
-            coefs[0] = Math.Round(Math.Exp(coefs[0]), tempAccuracy);
-            coefs[1] = Math.Round(coefs[1], tempAccuracy);
+            coefs[0] = Math.Round(Math.Exp(coefs[0]), parameterAccuracy);
+            coefs[1] = Math.Round(coefs[1], parameterAccuracy);
             expFunction = new FunctionSeries(x => Math.Exp(x*coefs[1]) * coefs[0], inputX[0], inputX[size - 1], 0.1, $"y={coefs[0]}*e^({coefs[1]}*x)");
+            expFunction.Color = OxyColor.FromRgb(0, 144, 255);
         }
 
         private void getQuadriacFunc()
         {
             var coefs = MathMethods.MethodKramera(MakeSystem(inputX, inputY, 3));
-            coefs[0] = Math.Round(coefs[0], tempAccuracy);
-            coefs[1] = Math.Round(coefs[1], tempAccuracy);
-            coefs[2] = Math.Round(coefs[2], tempAccuracy);
+            coefs[0] = Math.Round(coefs[0], parameterAccuracy);
+            coefs[1] = Math.Round(coefs[1], parameterAccuracy);
+            coefs[2] = Math.Round(coefs[2], parameterAccuracy);
             quadricFunction = new FunctionSeries(x => coefs[2]*Math.Pow(x,2)+coefs[1] * x + coefs[0], inputX[0], inputX[size - 1], 0.1, $"y={coefs[2]}*x^2+{coefs[1]}x+{coefs[0]}");
+            quadricFunction.Color = OxyColor.FromRgb(0, 144, 0);
         }
 
         public Exercise1()
@@ -181,8 +189,8 @@ namespace Graph
             ShowPowerCommand = new LambdaCommand(OnShowPowerCommandExecuted, CanShowPowerCommandExecute);
             ShowExpCommand = new LambdaCommand(OnShowExpCommandExecuted, CanShowExpCommandExecute);
             ShowQuadricCommand = new LambdaCommand(OnShowQuadricCommandExecuted, CanShowQuadricCommandExecute);
+            UpdateModel = new LambdaCommand(OnUpdateModelExecuted, CanUpdateModelExecute);
 
-            var coefs = MathMethods.MethodKramera(MakeSystem(inputX, inputY, 2));
             MyModel = new PlotModel { Title = "Апроксимация экспериментальных данных методом наименьших квадратов" };
             var points = new LineSeries
             {
@@ -201,7 +209,15 @@ namespace Graph
             MyModel.Series.Add(powerFunction);
             MyModel.Series.Add(expFunction);
             MyModel.Series.Add(quadricFunction);
-            for(int i=0; i<inputX.Length; i++)
+
+            MyModel.Legends.Add(new Legend()
+            {
+                LegendTitle = "Legend",
+                LegendPosition = LegendPosition.RightBottom,
+                LegendSize = new OxyPlot.OxySize(2,1)
+            });
+
+            for (int i=0; i<inputX.Length; i++)
             {
                 points.Points.Add(new OxyPlot.DataPoint(inputX[i], inputY[i]));
             }

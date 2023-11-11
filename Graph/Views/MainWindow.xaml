@@ -62,22 +62,22 @@
                             
                             <ToggleButton Grid.Row="0" Style="{StaticResource toggleButtonGraph}" Command="{Binding ShowLinearCommand}"/>
                             <Viewbox  Grid.Row="0" Grid.Column="1"  Style="{StaticResource viewGraphBox}">
-                                <TextBlock Text="y=ax+b" Style="{StaticResource textBlockGraph}"/>
+                                <TextBlock Text="y=ax+b" Style="{StaticResource textBlockGraph}" Foreground="#800000"/>
                             </Viewbox>
 
                             <ToggleButton Grid.Row="1" Style="{StaticResource toggleButtonGraph}" Command="{Binding ShowPowerCommand}"/>
                             <Viewbox  Grid.Row="1" Grid.Column="1"  Style="{StaticResource viewGraphBox}">
-                                <TextBlock Text="y=be^x" Style="{StaticResource textBlockGraph}"/>
+                                <TextBlock Text="y=bx^a" Style="{StaticResource textBlockGraph}" Foreground="#FF9100"/>
                             </Viewbox>
 
                             <ToggleButton Grid.Row="2" Style="{StaticResource toggleButtonGraph}" Command="{Binding ShowExpCommand}"/>
                             <Viewbox  Grid.Row="2" Grid.Column="1"  Style="{StaticResource viewGraphBox}">
-                                <TextBlock Text="y=bx^a" Style="{StaticResource textBlockGraph}"/>
+                                <TextBlock Text="y=be^x" Style="{StaticResource textBlockGraph}" Foreground="#0091FF"/>
                             </Viewbox>
 
                             <ToggleButton Grid.Row="3" Style="{StaticResource toggleButtonGraph}" Command="{Binding ShowQuadricCommand}"/>
                             <Viewbox  Grid.Row="3" Grid.Column="1"  Style="{StaticResource viewGraphBox}">
-                                <TextBlock Text="y=ax^2+bx+c" Style="{StaticResource textBlockGraph}"/>
+                                <TextBlock Text="y=ax^2+bx+c" Style="{StaticResource textBlockGraph}" Foreground="#009100"/>
                             </Viewbox>
                         </Grid>
                     </Grid>

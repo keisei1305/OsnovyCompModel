@@ -39,7 +39,6 @@ namespace Graph.Services
                     matrix[i, j] = temp;
                 }
             }
-
             return result;
         }
     }
