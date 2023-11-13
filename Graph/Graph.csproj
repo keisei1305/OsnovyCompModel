@@ -68,7 +68,15 @@
     </ApplicationDefinition>
     <Compile Include="Infrustructure\Commands\Command.cs" />
     <Compile Include="Infrustructure\Commands\LambdaCommand.cs" />
+    <Compile Include="Views\CheckAccuracyWindow.xaml.cs">
+      <DependentUpon>CheckAccuracyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VM\CheckAccuracyVM.cs" />
     <Compile Include="VM\ViewModel.cs" />
+    <Page Include="Views\CheckAccuracyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

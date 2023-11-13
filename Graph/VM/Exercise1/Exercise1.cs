@@ -30,6 +30,8 @@ namespace Graph
         private FunctionSeries powerFunction;
         private FunctionSeries expFunction;
         private FunctionSeries quadricFunction;
+        private Func<double, double>[] functions = new Func<double, double>[4];
+        private string[] functionNames = new string[4];
 
         public PlotModel MyModel
         {
@@ -114,6 +116,14 @@ namespace Graph
             MyModel.ResetAllAxes();
             MyModel.InvalidatePlot(true);
         }
+
+        public ICommand OpenData { get; }
+        private bool CanOpenDataExecute(object p) => true;
+        private void OnOpenDataExecuted(object p)
+        {
+            var wnd = new Graph.Views.CheckAccuracyWindow(inputX,inputY,functions,functionNames);
+            wnd.Show();
+        }
         #endregion
 
         private Matrix MakeSystem(double[] listX, double[] listY, int dim)
@@ -148,7 +158,9 @@ namespace Graph
             var coefs = MathMethods.MethodKramera(MakeSystem(inputX, inputY, 2));
             coefs[0] = Math.Round(coefs[0], parameterAccuracy);
             coefs[1] = Math.Round(coefs[1], parameterAccuracy);
-            linearFunction = new FunctionSeries(x => coefs[1] * x + coefs[0], inputX[0], inputX[size-1], 0.1, $"y={coefs[1]}x+{coefs[0]}");
+            functions[0] = x => coefs[1] * x + coefs[0];
+            functionNames[0] = $"y={coefs[1]}x+{coefs[0]}";
+            linearFunction = new FunctionSeries(functions[0], inputX[0], inputX[size-1], 0.1, functionNames[0]);
             linearFunction.Color = OxyColor.FromRgb(127,0,0);
         }
 
@@ -159,7 +171,9 @@ namespace Graph
             var coefs = MathMethods.MethodKramera(MakeSystem(tempX, tempY, 2));
             coefs[0] = Math.Round(Math.Exp(coefs[0]), parameterAccuracy);
             coefs[1] = Math.Round(coefs[1], parameterAccuracy);
-            powerFunction = new FunctionSeries(x => Math.Pow(x,coefs[1])*coefs[0], inputX[0], inputX[size - 1], 0.1, $"y=x^{coefs[1]}*{coefs[0]}");
+            functions[1] = x => Math.Pow(x, coefs[1]) * coefs[0];
+            functionNames[1] = $"y=x^{coefs[1]}*{coefs[0]}";
+            powerFunction = new FunctionSeries(functions[1], inputX[0], inputX[size - 1], 0.1, functionNames[1]);
             powerFunction.Color = OxyColor.FromRgb(255, 144, 0);
         }
 
@@ -169,7 +183,9 @@ namespace Graph
             var coefs = MathMethods.MethodKramera(MakeSystem(inputX, tempY, 2));
             coefs[0] = Math.Round(Math.Exp(coefs[0]), parameterAccuracy);
             coefs[1] = Math.Round(coefs[1], parameterAccuracy);
-            expFunction = new FunctionSeries(x => Math.Exp(x*coefs[1]) * coefs[0], inputX[0], inputX[size - 1], 0.1, $"y={coefs[0]}*e^({coefs[1]}*x)");
+            functions[2] = x => Math.Exp(x * coefs[1]) * coefs[0];
+            functionNames[2] = $"y={coefs[0]}*e^({coefs[1]}*x)";
+            expFunction = new FunctionSeries(functions[2], inputX[0], inputX[size - 1], 0.1, functionNames[2]);
             expFunction.Color = OxyColor.FromRgb(0, 144, 255);
         }
 
@@ -179,7 +195,9 @@ namespace Graph
             coefs[0] = Math.Round(coefs[0], parameterAccuracy);
             coefs[1] = Math.Round(coefs[1], parameterAccuracy);
             coefs[2] = Math.Round(coefs[2], parameterAccuracy);
-            quadricFunction = new FunctionSeries(x => coefs[2]*Math.Pow(x,2)+coefs[1] * x + coefs[0], inputX[0], inputX[size - 1], 0.1, $"y={coefs[2]}*x^2+{coefs[1]}x+{coefs[0]}");
+            functions[3] = x => coefs[2] * Math.Pow(x, 2) + coefs[1] * x + coefs[0];
+            functionNames[3] = $"y={coefs[2]}*x^2+{coefs[1]}x+{coefs[0]}";
+            quadricFunction = new FunctionSeries(functions[3], inputX[0], inputX[size - 1], 0.1, functionNames[3]);
             quadricFunction.Color = OxyColor.FromRgb(0, 144, 0);
         }
 
@@ -190,6 +208,7 @@ namespace Graph
             ShowExpCommand = new LambdaCommand(OnShowExpCommandExecuted, CanShowExpCommandExecute);
             ShowQuadricCommand = new LambdaCommand(OnShowQuadricCommandExecuted, CanShowQuadricCommandExecute);
             UpdateModel = new LambdaCommand(OnUpdateModelExecuted, CanUpdateModelExecute);
+            OpenData = new LambdaCommand(OnOpenDataExecuted, CanOpenDataExecute);
 
             MyModel = new PlotModel { Title = "Апроксимация экспериментальных данных методом наименьших квадратов" };
             var points = new LineSeries

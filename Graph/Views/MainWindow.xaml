@@ -38,6 +38,7 @@
                 <TabItem.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Update" Command="{Binding UpdateModel}"/>
+                        <MenuItem Header="Check Accuracy" Command="{Binding OpenData}"/>
                     </ContextMenu>
                 </TabItem.ContextMenu>
                 <TabItem.Content>
