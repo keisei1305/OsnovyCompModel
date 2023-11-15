@@ -68,6 +68,7 @@
     </ApplicationDefinition>
     <Compile Include="Infrustructure\Commands\Command.cs" />
     <Compile Include="Infrustructure\Commands\LambdaCommand.cs" />
+    <Compile Include="Models\Exercise1Model.cs" />
     <Compile Include="Views\CheckAccuracyWindow.xaml.cs">
       <DependentUpon>CheckAccuracyWindow.xaml</DependentUpon>
     </Compile>
@@ -87,7 +88,6 @@
     </Compile>
     <Compile Include="Services\MathMethods.cs" />
     <Compile Include="Services\Matrix.cs" />
-    <Compile Include="VM\Exercise1\Coefficients.cs" />
     <Compile Include="VM\Exercise1\Exercise1.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -121,6 +121,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Infrustructure\Locators\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

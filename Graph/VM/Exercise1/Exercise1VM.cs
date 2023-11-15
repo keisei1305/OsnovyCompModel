@@ -12,7 +12,7 @@ using OxyPlot.Legends;
 
 namespace Graph
 {
-    class Exercise1:ViewModel
+    internal class Exercise1VM:ViewModel
     {
         private readonly byte parameterAccuracy = 2;
         private readonly byte tempAccuracy = 4;
@@ -241,22 +241,6 @@ namespace Graph
                 points.Points.Add(new OxyPlot.DataPoint(inputX[i], inputY[i]));
             }
             MyModel.Series.Add(points);
-        }
-
-        public Exercise1(PlotModel plotModel)
-        {
-            ShowLinearCommand = new LambdaCommand(OnShowLinearCommandExecuted, CanShowLinearCommandExecute);
-            ShowPowerCommand = new LambdaCommand(OnShowPowerCommandExecuted, CanShowPowerCommandExecute);
-            ShowExpCommand = new LambdaCommand(OnShowExpCommandExecuted, CanShowExpCommandExecute);
-            ShowQuadricCommand = new LambdaCommand(OnShowQuadricCommandExecuted, CanShowQuadricCommandExecute);
-            UpdateModel = new LambdaCommand(OnUpdateModelExecuted, CanUpdateModelExecute);
-            OpenData = new LambdaCommand(OnOpenDataExecuted, CanOpenDataExecute);
-
-            MyModel = plotModel;
-            linearFunction = (FunctionSeries)MyModel.Series[0];
-            powerFunction = (FunctionSeries)MyModel.Series[1];
-            expFunction = (FunctionSeries)MyModel.Series[2];
-            quadricFunction = (FunctionSeries)MyModel.Series[3];
         }
     }
 }
