@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Graph"
+        xmlns:vm="clr-namespace:Graph.VM"
+        xmlns:vm1="clr-namespace:Graph.VM.Exercise1"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -11,7 +13,7 @@
     </Window.Resources>
     <Grid>
         <TabControl x:Name="Pages">
-            <TabItem x:Name="Exercise1">
+            <TabItem x:Name="Exercise1" DataContext="{Binding Ex1VM, Source={StaticResource Exercise1Locator}}">
                 <TabItem.Resources>
                     <Style x:Key="toggleButtonGraph" TargetType="ToggleButton">
                         <Setter Property="MinHeight" Value="15"/>
@@ -29,9 +31,6 @@
                         <Setter Property="VerticalAlignment" Value="Center"/>
                     </Style>
                 </TabItem.Resources>
-                <TabItem.DataContext>
-                    <local:Exercise1/>
-                </TabItem.DataContext>
                 <TabItem.Header>
                     <TextBlock Text="Задание 1"></TextBlock>
                 </TabItem.Header>

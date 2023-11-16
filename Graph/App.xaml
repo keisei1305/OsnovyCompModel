@@ -1,9 +1,10 @@
 ﻿<Application x:Class="Graph.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:core="clr-namespace:Graph.Infrustructure.Locators"
              xmlns:local="clr-namespace:Graph"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <core:LocatorEx1 x:Key="Exercise1Locator"/>
     </Application.Resources>
 </Application>

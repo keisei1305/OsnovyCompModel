@@ -39,18 +39,30 @@ namespace Graph.Models
             get => _functionNames;
         }
 
-        private void getLinearFunc()
+        public double[] InputX
+        {
+            get => inputX;
+        }
+
+        public double[] InputY
+        {
+            get => inputY;
+        }
+
+        private void GetLinearFunc()
         {
             var coefs = MathMethods.MethodKramera(MakeSystem(inputX, inputY, 2));
             coefs[0] = Math.Round(coefs[0], parameterAccuracy);
             coefs[1] = Math.Round(coefs[1], parameterAccuracy);
             _functions[0] = x => coefs[1] * x + coefs[0];
             _functionNames[0] = $"y={coefs[1]}x+{coefs[0]}";
-            linearFunction = new FunctionSeries(_functions[0], inputX[0], inputX[size - 1], 0.1, _functionNames[0]);
-            linearFunction.Color = OxyColor.FromRgb(127, 0, 0);
+            linearFunction = new FunctionSeries(_functions[0], inputX[0], inputX[size - 1], 0.1, _functionNames[0])
+            {
+                Color = OxyColor.FromRgb(127, 0, 0)
+            };
         }
 
-        private void getPowerFunc()
+        private void GetPowerFunc()
         {
             var tempX = inputX.Select(x => Math.Log(x)).ToArray();
             var tempY = inputY.Select(y => Math.Log(y)).ToArray();
@@ -59,11 +71,13 @@ namespace Graph.Models
             coefs[1] = Math.Round(coefs[1], parameterAccuracy);
             _functions[1] = x => Math.Pow(x, coefs[1]) * coefs[0];
             _functionNames[1] = $"y=x^{coefs[1]}*{coefs[0]}";
-            powerFunction = new FunctionSeries(_functions[1], inputX[0], inputX[size - 1], 0.1, _functionNames[1]);
-            powerFunction.Color = OxyColor.FromRgb(255, 144, 0);
+            powerFunction = new FunctionSeries(_functions[1], inputX[0], inputX[size - 1], 0.1, _functionNames[1])
+            {
+                Color = OxyColor.FromRgb(255, 144, 0)
+            };
         }
 
-        private void getExpFunc()
+        private void GetExpFunc()
         {
             var tempY = inputY.Select(y => Math.Log(y)).ToArray();
             var coefs = MathMethods.MethodKramera(MakeSystem(inputX, tempY, 2));
@@ -71,11 +85,13 @@ namespace Graph.Models
             coefs[1] = Math.Round(coefs[1], parameterAccuracy);
             _functions[2] = x => Math.Exp(x * coefs[1]) * coefs[0];
             _functionNames[2] = $"y={coefs[0]}*e^({coefs[1]}*x)";
-            expFunction = new FunctionSeries(_functions[2], inputX[0], inputX[size - 1], 0.1, _functionNames[2]);
-            expFunction.Color = OxyColor.FromRgb(0, 144, 255);
+            expFunction = new FunctionSeries(_functions[2], inputX[0], inputX[size - 1], 0.1, _functionNames[2])
+            {
+                Color = OxyColor.FromRgb(0, 144, 255)
+            };
         }
 
-        private void getQuadriacFunc()
+        private void GetQuadriacFunc()
         {
             var coefs = MathMethods.MethodKramera(MakeSystem(inputX, inputY, 3));
             coefs[0] = Math.Round(coefs[0], parameterAccuracy);
@@ -83,8 +99,10 @@ namespace Graph.Models
             coefs[2] = Math.Round(coefs[2], parameterAccuracy);
             _functions[3] = x => coefs[2] * Math.Pow(x, 2) + coefs[1] * x + coefs[0];
             _functionNames[3] = $"y={coefs[2]}*x^2+{coefs[1]}x+{coefs[0]}";
-            quadricFunction = new FunctionSeries(_functions[3], inputX[0], inputX[size - 1], 0.1, _functionNames[3]);
-            quadricFunction.Color = OxyColor.FromRgb(0, 144, 0);
+            quadricFunction = new FunctionSeries(_functions[3], inputX[0], inputX[size - 1], 0.1, _functionNames[3])
+            {
+                Color = OxyColor.FromRgb(0, 144, 0)
+            };
         }
 
         private Matrix MakeSystem(double[] listX, double[] listY, int dim)
@@ -126,10 +144,10 @@ namespace Graph.Models
                 MarkerSize = 4,
                 Title = "Экспереминтальные точки"
             };
-            getQuadriacFunc();
-            getLinearFunc();
-            getPowerFunc();
-            getExpFunc();
+            GetQuadriacFunc();
+            GetLinearFunc();
+            GetPowerFunc();
+            GetExpFunc();
             MyModel.Series.Add(linearFunction);
             MyModel.Series.Add(powerFunction);
             MyModel.Series.Add(expFunction);

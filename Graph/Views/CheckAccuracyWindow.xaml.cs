@@ -20,18 +20,9 @@ namespace Graph.Views
     /// </summary>
     public partial class CheckAccuracyWindow : Window
     {
-        VM.CheckAccuracyVM data;
-        public DataTable Table;
         public CheckAccuracyWindow()
         {
             InitializeComponent();
-        }
-
-        public CheckAccuracyWindow(double[] InputX, double[] InputY, Func<double, double>[] functions, string[] functionNames)
-        {
-            InitializeComponent();
-            data = new VM.CheckAccuracyVM(InputX, InputY, functions, functionNames);
-            Table = data.Table;
         }
     }
 }

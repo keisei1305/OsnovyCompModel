@@ -3,21 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Graph.Views"
-        xmlns:vm="clr-namespace:Graph.VM"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
-        Title="CheckAccuracyWindow" Height="450" Width="800">
+        Title="CheckAccuracyWindow" Height="450" Width="800"
+        DataContext="{Binding Path=CheckAccuracyVM, Source={StaticResource Exercise1Locator}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <oxy:PlotView Grid.Row="0">
-            
-        </oxy:PlotView>
-        <DataGrid Grid.Row="1" x:Name="TableData" ItemsSource="{Binding Table}">
-            
+        <oxy:PlotView Grid.Row="0" Model="{Binding MyModel}"/>
+        <DataGrid Grid.Row="1" x:Name="TableData" ItemsSource="{Binding Table}"
+                  AutoGenerateColumns="True" CanUserAddRows="False"
+                  CanUserDeleteRows="False" ColumnWidth="1*" RowHeight="30">
         </DataGrid>
     </Grid>
 </Window>

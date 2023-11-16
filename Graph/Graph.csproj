@@ -68,11 +68,12 @@
     </ApplicationDefinition>
     <Compile Include="Infrustructure\Commands\Command.cs" />
     <Compile Include="Infrustructure\Commands\LambdaCommand.cs" />
+    <Compile Include="Infrustructure\Locators\LocatorEx1.cs" />
     <Compile Include="Models\Exercise1Model.cs" />
     <Compile Include="Views\CheckAccuracyWindow.xaml.cs">
       <DependentUpon>CheckAccuracyWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VM\CheckAccuracyVM.cs" />
+    <Compile Include="VM\Exercise1\CheckAccuracyVM.cs" />
     <Compile Include="VM\ViewModel.cs" />
     <Page Include="Views\CheckAccuracyWindow.xaml">
       <SubType>Designer</SubType>
@@ -88,7 +89,7 @@
     </Compile>
     <Compile Include="Services\MathMethods.cs" />
     <Compile Include="Services\Matrix.cs" />
-    <Compile Include="VM\Exercise1\Exercise1.cs" />
+    <Compile Include="VM\Exercise1\Exercise1VM.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -121,8 +122,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrustructure\Locators\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

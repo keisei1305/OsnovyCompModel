@@ -6,19 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using OxyPlot.Axes;
 
-namespace Graph.VM
+namespace Graph.VM.Exercise1
 {
     internal class CheckAccuracyVM:ViewModel
     {
+        public PlotModel MyModel { get; set; }
         public DataTable Table { get; set; }
-
-        public CheckAccuracyVM()
-        {
-
-        }
         public CheckAccuracyVM(double[] InputX,double[] InputY, Func<double,double>[] functions, string[] functionNames)
         {
+            double[] sumdy = new double[4];
             Table = new DataTable();
             int n = InputX.Length;
             Table.Columns.Add(new DataColumn("function"));
@@ -39,8 +37,19 @@ namespace Graph.VM
                     sum += delta;
                 }
                 row[n + 1] = sum;
+                sumdy[i] = sum;
                 Table.Rows.Add(row);
             }
+            MyModel = new PlotModel { Title = "Апроксимация экспериментальных данных методом наименьших квадратов" };
+            var s1 = new BarSeries { Title = "sum(dy)", StrokeColor = OxyColors.Black, StrokeThickness = 1 };
+            var categoryAxis = new CategoryAxis { Position = AxisPosition.Left };
+            for(int i=0; i<4; i++)
+            {
+                s1.Items.Add(new BarItem { Value = sumdy[i] });
+                categoryAxis.Labels.Add(functionNames[i]);
+            }
+            MyModel.Series.Add(s1);
+            MyModel.Axes.Add(categoryAxis);
         }
     }
 }
