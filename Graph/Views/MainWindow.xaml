@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Graph"
         xmlns:vm="clr-namespace:Graph.VM"
         xmlns:vm1="clr-namespace:Graph.VM.Exercise1"
+        xmlns:vm2="clr-namespace:Graph.VM.Exercise2"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -59,7 +60,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            
+
                             <ToggleButton Grid.Row="0" Style="{StaticResource toggleButtonGraph}" Command="{Binding ShowLinearCommand}"/>
                             <Viewbox  Grid.Row="0" Grid.Column="1"  Style="{StaticResource viewGraphBox}">
                                 <TextBlock Text="y=ax+b" Style="{StaticResource textBlockGraph}" Foreground="#800000"/>
@@ -82,6 +83,42 @@
                         </Grid>
                     </Grid>
                 </TabItem.Content>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>Задание 2</TabItem.Header>
+                <TabItem.DataContext>
+                    <vm2:Exercise2VM/>
+                </TabItem.DataContext>
+                <TabItem.Resources>
+                    <Style x:Key="NextContent" TargetType="Button">
+                        <Setter Property="Width" Value="30px"/>
+                        <Setter Property="Opacity" Value="0.6"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="1"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Resources>
+                <TabItem.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="279*"/>
+                            <RowDefinition Height="112*"/>
+                        </Grid.RowDefinitions>
+                        <oxy:PlotView Model="{Binding CurrentModel}"/>
+                        <Button Content="P" Command="{Binding PreviousModelCommand}" Style="{StaticResource NextContent}" HorizontalAlignment="Left"/>
+                        <Button Content="N" Command="{Binding NextModelCommand}" Style="{StaticResource NextContent}" HorizontalAlignment="Right"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="2">
+                            <TextBlock Text="{Binding}"/>
+                            <TextBlock/>
+                            <TextBlock/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>Задание 3</TabItem.Header>
             </TabItem>
         </TabControl>
     </Grid>
