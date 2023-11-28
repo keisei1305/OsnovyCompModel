@@ -71,11 +71,13 @@
     <Compile Include="Infrustructure\Locators\LocatorEx1.cs" />
     <Compile Include="Models\Exercise1Model.cs" />
     <Compile Include="Models\Exercise2Model.cs" />
+    <Compile Include="Models\Exercise3Model.cs" />
     <Compile Include="Views\CheckAccuracyWindow.xaml.cs">
       <DependentUpon>CheckAccuracyWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="VM\Exercise1\CheckAccuracyVM.cs" />
     <Compile Include="VM\Exercise2\Exercise2VM.cs" />
+    <Compile Include="VM\Exercise3\Exercise3VM.cs" />
     <Compile Include="VM\ViewModel.cs" />
     <Page Include="Views\CheckAccuracyWindow.xaml">
       <SubType>Designer</SubType>

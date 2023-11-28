@@ -103,17 +103,11 @@
                 <TabItem.Content>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="279*"/>
-                            <RowDefinition Height="112*"/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <oxy:PlotView Model="{Binding CurrentModel}"/>
                         <Button Content="P" Command="{Binding PreviousModelCommand}" Style="{StaticResource NextContent}" HorizontalAlignment="Left"/>
                         <Button Content="N" Command="{Binding NextModelCommand}" Style="{StaticResource NextContent}" HorizontalAlignment="Right"/>
-                        <StackPanel Orientation="Vertical" Grid.Row="2">
-                            <TextBlock Text="{Binding}"/>
-                            <TextBlock/>
-                            <TextBlock/>
-                        </StackPanel>
                     </Grid>
                 </TabItem.Content>
             </TabItem>

@@ -14,7 +14,9 @@ namespace Graph.VM.Exercise2
     public class Exercise2VM : ViewModel
     {
         List<PlotModel> models;
+        List<string> messages;
         PlotModel _currentModel;
+        string _currentMessage;
         public PlotModel CurrentModel
         {
             get => _currentModel;
@@ -24,37 +26,16 @@ namespace Graph.VM.Exercise2
                 OnPropertyChanged();
             }
         }
+        public string CurrentMessage
+        {
+            get => _currentMessage;
+            set
+            {
+                _currentMessage = value;
+                OnPropertyChanged();
+            }
+        }
         byte currentIndex = 0;
-        string _absoluteError;
-        string _relativeError;
-        short _pointsQuantity;
-        public string RelativeError
-        {
-            get => _relativeError;
-            set
-            {
-                _relativeError = value;
-                OnPropertyChanged();
-            }
-        }
-        public string AbsoluteError
-        {
-            get => _absoluteError;
-            set
-            {
-                _absoluteError = value;
-                OnPropertyChanged();
-            }
-        }
-        public short PointsQuantity
-        {
-            get => _pointsQuantity;
-            set
-            {
-                _pointsQuantity = value;
-                OnPropertyChanged();
-            }
-        }
 
         public ICommand NextModelCommand { get; }
         private bool CanNextModelCommandExecute(object p) => currentIndex < 3;
@@ -76,7 +57,7 @@ namespace Graph.VM.Exercise2
         {
             NextModelCommand = new LambdaCommand(OnNextModelCommandExecuted, CanNextModelCommandExecute);
             PreviousModelCommand = new LambdaCommand(OnPreviousModelCommandExecuted, CanPreviousModelCommandExecute);
-            models = Exercise2Model.GetModels();
+            models = Exercise2Model.GetModels().Item1;
             CurrentModel = models[0];
         }
     }
