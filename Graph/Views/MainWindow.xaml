@@ -7,6 +7,7 @@
         xmlns:vm="clr-namespace:Graph.VM"
         xmlns:vm1="clr-namespace:Graph.VM.Exercise1"
         xmlns:vm2="clr-namespace:Graph.VM.Exercise2"
+        xmlns:vm3="clr-namespace:Graph.VM.Exercise3"
         xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -113,6 +114,14 @@
             </TabItem>
             <TabItem>
                 <TabItem.Header>Задание 3</TabItem.Header>
+                <TabItem.DataContext>
+                    <vm3:Exercise3VM/>
+                </TabItem.DataContext>
+                <TabItem.Content>
+                    <Grid>
+                        <DataGrid ItemsSource="{Binding Table}"/>
+                    </Grid>
+                </TabItem.Content>
             </TabItem>
         </TabControl>
     </Grid>
