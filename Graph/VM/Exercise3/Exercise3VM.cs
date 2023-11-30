@@ -14,7 +14,7 @@ namespace Graph.VM.Exercise3
         {
             Table = new DataTable();
             Table.Columns.Add(new DataColumn("Имя метода"));
-            for(int i=0; i<7; i++)
+            for(int i=0; i<6; i++)
             {
                 Table.Columns.Add(new DataColumn($"{i+1}"));
             }

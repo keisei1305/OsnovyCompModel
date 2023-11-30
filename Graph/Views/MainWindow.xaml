@@ -119,7 +119,10 @@
                 </TabItem.DataContext>
                 <TabItem.Content>
                     <Grid>
-                        <DataGrid ItemsSource="{Binding Table}"/>
+                        <Viewbox VerticalAlignment="Top">
+                            <DataGrid ItemsSource="{Binding Table}" FontSize="14" CanUserAddRows="False">
+                            </DataGrid>
+                        </Viewbox>
                     </Grid>
                 </TabItem.Content>
             </TabItem>

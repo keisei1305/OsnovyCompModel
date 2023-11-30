@@ -25,18 +25,17 @@ namespace Graph.Models
         static private IEnumerable<double> Neimon(double p, int n)
         {
             double previousNum = p;
-            yield return previousNum;
             for(int i=0; i<n; i++)
             {
-                previousNum = GetMiddleNum(Math.Pow(previousNum,2))/10000;
                 yield return previousNum;
+                previousNum = GetMiddleNum(Math.Pow(previousNum,2))/10000;
             }
         }
 
         static private IEnumerable<double> ModifiedNeimon(double p1,double p2, int n)
         {
             double result;
-            for(int i=0; i <= n; i++)
+            for(int i=0; i <n; i++)
             {
                 result = GetMiddleNum(p1 * p2)/10000;
                 yield return result;
